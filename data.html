@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Table</title>
+    <link rel="icon" href="logo.png" type="image/png">
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 70%;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            text-align: left;
+            padding: 6px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .char-info {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #eff3f4;
+        }
+
+        .code-snippet {
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #000000;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .copy-button.copied {
+            background-color: #656b66;
+        }
+
+        .grey-line {
+            border: 0;
+            height: 1px;
+            background: grey;
+            margin: 20px 0;
+        }
+
+
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+
+        }
+
+        .block {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            width: 250px;
+            text-align: center;
+        }
+
+        .input,
+        .button {
+            margin: 10px 0;
+            padding: 15px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .reset-button {
+            background-color: #f44336;
+            margin-top: 5px;
+        }
+
+        .reset-button:hover {
+            background-color: #e53935;
+        }
+
+
+        #top-nav {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.button-54 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow:
+    1px 1px 0px 0px,
+    2px 2px 0px 0px,
+    3px 3px 0px 0px,
+    4px 4px 0px 0px,
+    5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  background: none;
+  margin: 10px;
+}
+
+.button-54:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+
+        @media (min-width: 768px) {
+
+            /* Medium and large screens */
+            .code-snippet {
+                width: 60%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div id="top-nav">
+        <button class="button-54" onclick="scrollToSection('template')">Template</button>
+        <button class="button-54" onclick="scrollToSection('dsu')">DSU</button>
+        <button class="button-54" onclick="scrollToSection('seive')">Sieve</button>
+        <button class="button-54" onclick="scrollToSection('modpow')">Modulo Power</button>
+    </div>
+      
+
+    <div>
+        <h1>Binary ↔ Decimal</h1>
+        <div class="container">
+            <div class="block">
+                <h2>Binary to Decimal</h2>
+                <input type="text" id="binaryInput" class="input" placeholder="Enter binary number">
+                <button class="button" onclick="convertToDecimal()">Convert</button>
+                <button class="button reset-button" onclick="resetBinaryInput()">Reset</button>
+                <p id="decimalOutput">Decimal: </p>
+            </div>
+            <div class="block">
+                <h2>Decimal to Binary</h2>
+                <input type="text" id="decimalInput" class="input" placeholder="Enter decimal number">
+                <button class="button" onclick="convertToBinary()">Convert</button>
+                <button class="button reset-button" onclick="resetDecimalInput()">Reset</button>
+                <p id="binaryOutput">Binary: </p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <iframe src="TreeVis/index.html" width="100%" height="900px" style="border:none;">
+            Your browser does not support iframes.
+        </iframe>
+        <h1>ASCII Table</h1>
+        <!-- <h4>Dec = Decimal Value</h4>
+    <h4>Char = Character</h4> -->
+        <ul>
+            <li>'5' has the int value 53.</li>
+            <li> If we write '5' - '0', it evaluates to 53 - 48, or the int 5.</li>
+            <li>If we write char c = 'B' + 32;, then c stores 'b'.</li>
+        </ul>
+        </h4>
+        <table>
+            <tr>
+                <th>Decimal Value</th>
+                <th>Character</th>
+                <th></th>
+                <th>Decimal Value</th>
+                <th>Character</th>
+                <th></th>
+                <th>Decimal Value</th>
+                <th>Character</th>
+                <th></th>
+                <th>Decimal Value</th>
+                <th>Character</th>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td class="char-info">NUL (null)</td>
+                <td></td>
+                <td>32</td>
+                <td class="char-info">SPACE</td>
+                <td></td>
+                <td>64</td>
+                <td>@</td>
+                <td></td>
+                <td>96</td>
+                <td>`</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td class="char-info">SOH (start of heading)</td>
+                <td></td>
+                <td>33</td>
+                <td>!</td>
+                <td></td>
+                <td>65</td>
+                <td>A</td>
+                <td></td>
+                <td>97</td>
+                <td>a</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td class="char-info">STX (start of text)</td>
+                <td></td>
+                <td>34</td>
+                <td>"</td>
+                <td></td>
+                <td>66</td>
+                <td>B</td>
+                <td></td>
+                <td>98</td>
+                <td>b</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td class="char-info">ETX (end of text)</td>
+                <td></td>
+                <td>35</td>
+                <td>#</td>
+                <td></td>
+                <td>67</td>
+                <td>C</td>
+                <td></td>
+                <td>99</td>
+                <td>c</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td class="char-info">EOT (end of transmission)</td>
+                <td></td>
+                <td>36</td>
+                <td>$</td>
+                <td></td>
+                <td>68</td>
+                <td>D</td>
+                <td></td>
+                <td>100</td>
+                <td>d</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td class="char-info">ENQ (enquiry)</td>
+                <td></td>
+                <td>37</td>
+                <td>%</td>
+                <td></td>
+                <td>69</td>
+                <td>E</td>
+                <td></td>
+                <td>101</td>
+                <td>e</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td class="char-info">ACK (acknowledge)</td>
+                <td></td>
+                <td>38</td>
+                <td>&</td>
+                <td></td>
+                <td>70</td>
+                <td>F</td>
+                <td></td>
+                <td>102</td>
+                <td>f</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td class="char-info">BEL (bell)</td>
+                <td></td>
+                <td>39</td>
+                <td>'</td>
+                <td></td>
+                <td>71</td>
+                <td>G</td>
+                <td></td>
+                <td>103</td>
+                <td>g</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td class="char-info">BS (backspace)</td>
+                <td></td>
+                <td>40</td>
+                <td>(</td>
+                <td></td>
+                <td>72</td>
+                <td>H</td>
+                <td></td>
+                <td>104</td>
+                <td>h</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td class="char-info">TAB (horizontal tab)</td>
+                <td></td>
+                <td>41</td>
+                <td>)</td>
+                <td></td>
+                <td>73</td>
+                <td>I</td>
+                <td></td>
+                <td>105</td>
+                <td>i</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td class="char-info">LF (NL line feed, new line)</td>
+                <td></td>
+                <td>42</td>
+                <td>*</td>
+                <td></td>
+                <td>74</td>
+                <td>J</td>
+                <td></td>
+                <td>106</td>
+                <td>j</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td class="char-info">VT (vertical tab)</td>
+                <td></td>
+                <td>43</td>
+                <td>+</td>
+                <td></td>
+                <td>75</td>
+                <td>K</td>
+                <td></td>
+                <td>107</td>
+                <td>k</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td class="char-info">FF (NP form feed, new page)</td>
+                <td></td>
+                <td>44</td>
+                <td>,</td>
+                <td></td>
+                <td>76</td>
+                <td>L</td>
+                <td></td>
+                <td>108</td>
+                <td>l</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td class="char-info">CR (carriage return)</td>
+                <td></td>
+                <td>45</td>
+                <td>-</td>
+                <td></td>
+                <td>77</td>
+                <td>M</td>
+                <td></td>
+                <td>109</td>
+                <td>m</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td class="char-info">SO (shift out)</td>
+                <td></td>
+                <td>46</td>
+                <td>.</td>
+                <td></td>
+                <td>78</td>
+                <td>N</td>
+                <td></td>
+                <td>110</td>
+                <td>n</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td class="char-info">SI (shift in)</td>
+                <td></td>
+                <td>47</td>
+                <td>/</td>
+                <td></td>
+                <td>79</td>
+                <td>O</td>
+                <td></td>
+                <td>111</td>
+                <td>o</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td class="char-info">DLE (data link escape)</td>
+                <td></td>
+                <td>48</td>
+                <td>0</td>
+                <td></td>
+                <td>80</td>
+                <td>P</td>
+                <td></td>
+                <td>112</td>
+                <td>p</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td class="char-info">DC1 (device control 1)</td>
+                <td></td>
+                <td>49</td>
+                <td>1</td>
+                <td></td>
+                <td>81</td>
+                <td>Q</td>
+                <td></td>
+                <td>113</td>
+                <td>q</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td class="char-info">DC2 (device control 2)</td>
+                <td></td>
+                <td>50</td>
+                <td>2</td>
+                <td></td>
+                <td>82</td>
+                <td>R</td>
+                <td></td>
+                <td>114</td>
+                <td>r</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td class="char-info">DC3 (device control 3)</td>
+                <td></td>
+                <td>51</td>
+                <td>3</td>
+                <td></td>
+                <td>83</td>
+                <td>S</td>
+                <td></td>
+                <td>115</td>
+                <td>s</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td class="char-info">DC4 (device control 4)</td>
+                <td></td>
+                <td>52</td>
+                <td>4</td>
+                <td></td>
+                <td>84</td>
+                <td>T</td>
+                <td></td>
+                <td>116</td>
+                <td>t</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td class="char-info">NAK (negative acknowledge)</td>
+                <td></td>
+                <td>53</td>
+                <td>5</td>
+                <td></td>
+                <td>85</td>
+                <td>U</td>
+                <td></td>
+                <td>117</td>
+                <td>u</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td class="char-info">SYN (synchronous idle)</td>
+                <td></td>
+                <td>54</td>
+                <td>6</td>
+                <td></td>
+                <td>86</td>
+                <td>V</td>
+                <td></td>
+                <td>118</td>
+                <td>v</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td class="char-info">ETB (end of trans. block)</td>
+                <td></td>
+                <td>55</td>
+                <td>7</td>
+                <td></td>
+                <td>87</td>
+                <td>W</td>
+                <td></td>
+                <td>119</td>
+                <td>w</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td class="char-info">CAN (cancel)</td>
+                <td></td>
+                <td>56</td>
+                <td>8</td>
+                <td></td>
+                <td>88</td>
+                <td>X</td>
+                <td></td>
+                <td>120</td>
+                <td>x</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td class="char-info">EM (end of medium)</td>
+                <td></td>
+                <td>57</td>
+                <td>9</td>
+                <td></td>
+                <td>89</td>
+                <td>Y</td>
+                <td></td>
+                <td>121</td>
+                <td>y</td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td class="char-info">SUB (substitute)</td>
+                <td></td>
+                <td>58</td>
+                <td>:</td>
+                <td></td>
+                <td>90</td>
+                <td>Z</td>
+                <td></td>
+                <td>122</td>
+                <td>z</td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td class="char-info">ESC (escape)</td>
+                <td></td>
+                <td>59</td>
+                <td>;</td>
+                <td></td>
+                <td>91</td>
+                <td>[</td>
+                <td></td>
+                <td>123</td>
+                <td>{</td>
+            </tr>
+            <tr>
+                <td>28</td>
+                <td class="char-info">FS (file separator)</td>
+                <td></td>
+                <td>60</td>
+                <td>&lt;</td>
+                <td></td>
+                <td>92</td>
+                <td>\</td>
+                <td></td>
+                <td>124</td>
+                <td>|</td>
+            </tr>
+            <tr>
+                <td>29</td>
+                <td class="char-info">GS (group separator)</td>
+                <td></td>
+                <td>61</td>
+                <td>=</td>
+                <td></td>
+                <td>93</td>
+                <td>]</td>
+                <td></td>
+                <td>125</td>
+                <td>}</td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td class="char-info">RS (record separator)</td>
+                <td></td>
+                <td>62</td>
+                <td>&gt;</td>
+                <td></td>
+                <td>94</td>
+                <td>^</td>
+                <td></td>
+                <td>126</td>
+                <td>~</td>
+            </tr>
+            <tr>
+                <td>31</td>
+                <td class="char-info">US (unit separator)</td>
+                <td></td>
+                <td>63</td>
+                <td>?</td>
+                <td></td>
+                <td>95</td>
+                <td>_</td>
+                <td></td>
+                <td>127</td>
+                <td>DEL</td>
+            </tr>
+        </table>
+        <hr class="grey-line">
+        <hr class="grey-line">
+
+
+        <h1 id="template">Template</h1>
+        <div class="code-snippet" >
+            <button class="copy-button">Copy Code</button>
+            <pre><code>
+    #include &lt;bits/stdc++.h&gt;
+    #define int long long
+    #define endl &quot;\n&quot;
+    #define vi vector&lt;int&gt;
+    #define vvi vector&lt;vi&gt;
+    #define vll vector&lt;ll&gt;
+    #define vvll vector&lt;vll&gt;
+    #define pii pair&lt;int, int&gt;
+    #define vpii vector&lt;pair&lt;int, int&gt;&gt;
+    #define pri priority_queue&lt;int&gt;
+    #define prii priority_queue&lt;pair&lt;int, int&gt;&gt;
+    #define umi unordered_map&lt;int, int&gt;
+    #define usi unordered_set&lt;int&gt;
+    #define pb push_back
+    #define all(x) x.begin(), x.end()
+    #define ball(x) x.rbegin(), x.rend()
+    #define muk(i, n) for (long long i = 0; i &lt; (n); i++)
+    #define kum(i, n) for (long long i = (n-1); i &gt;= 0; i--)
+    #define muki(st, i, en) for (long long i = (st); i &lt; (en); i++)
+    #define prx(x) cout &lt;&lt; x &lt;&lt; &quot;\n&quot;
+    #define pg(x) cout &lt;&lt; x &lt;&lt; &quot; &quot;
+    #define pr(v) muk(i, v.size()) cout &lt;&lt; v[i] &lt;&lt; &quot; \n&quot;[i == v.size() - 1]
+
+    #define inp(v, n) \
+        vi v(n);      \
+        muk(i, n) cin &gt;&gt; v[i]
+
+    #define in2d(v, m, n) \
+        vvi v(m, vi(n));  \
+        muk(i, n) muk(j, n) cin &gt;&gt; v[i][j]
+
+    #define yes cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl
+    #define no cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl
+    const int mod = 1000000007;
+    using namespace std;
+    void solve()
+    {
+        int n, m;
+        cin &gt;&gt; n &gt;&gt; m;
+        in2d(a, 2, n);
+    }
+    signed main()
+    {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        int t;
+        t = 1;
+        while (t--)
+        {
+            solve();
+        }
+    }
+    </code></pre>
+        </div>
+
+        </br>
+
+        <h1 id="dsu">DSU</h1>
+        <div class="code-snippet" >
+            <button class="copy-button">Copy Code</button>
+            <pre><code>
+    class dsu
+    {
+    vector&lt;int&gt; par;
+    vector&lt;int&gt; size;
+    public:
+        dsu(int n)
+        {
+            par.resize(n + 1);
+            size.resize(n + 1, 1);
+            for (int i = 0; i &lt;= n; i++) { 
+                par[i]=i; 
+            } 
+        } 
+        int findpar(int u) { 
+            if (par[u]==u) 
+            { 
+                return u; 
+            } 
+            return par[u]=findpar(par[u]); 
+        } 
+        void unionbysize(int u, int v) {
+            int par_u=findpar(u);
+            int par_v=findpar(v); 
+            if(par_v==par_u) return; 
+            if (size[par_u]> size[par_v])
+            {
+                par[par_v] = par_u;
+                size[par_u] += size[par_v];
+            }
+            else
+            {
+            par[par_u] = par_v;
+            size[par_v] += size[par_u];
+            }
+        }
+    };
+    </code></pre>
+        </div>
+
+
+        <h1 id="seive">Sieve Of Eratosthenes</h1>
+        <div class="code-snippet" >
+            <button class="copy-button">Copy Code</button>
+            <pre><code>
+     vector&lt;int&gt; SieveOfEratosthenes(int n)
+    {
+        vector&lt;bool&gt; prime(n + 1, true);
+        for (int p = 2; p * p &lt;= n; p++)
+        {
+            if (prime[p] == true)
+            {
+                for (int i = p * p; i &lt;= n; i += p)
+                    prime[i] = false;
+            }
+        }
+        vector&lt;int&gt; ans;
+        for (int p = 2; p &lt;= n; p++)
+        {
+            if (prime[p])
+            {
+                ans.push_back(p);
+            }
+        }
+        return ans;
+    }
+    </code></pre>
+        </div>
+
+        <h1 id="modpow">Modulo Power</h1>
+        <div class="code-snippet" >
+            <button class="copy-button">Copy Code</button>
+            <pre><code>
+    int modpow(int b,int e){
+    int res = 1;
+    b = b % mod;
+    while(e &gt; 0){
+        if(e%2==1){
+            res = (res*b)%mod;
+        }
+        b = (b*b)%mod;
+        e/=2;
+    }
+    return res;
+    }
+        
+    </code></pre>
+        </div>
+
+
+    </div>
+    <script>
+        // Convert Binary to Decimal
+        function convertToDecimal() {
+            const binaryInput = document.getElementById('binaryInput').value;
+            if (/^[01]+$/.test(binaryInput)) {
+                const decimalOutput = parseInt(binaryInput, 2);
+                document.getElementById('decimalOutput').innerText = 'Decimal: ' + decimalOutput;
+            } else {
+                document.getElementById('decimalOutput').innerText = 'Decimal: Invalid Input';
+            }
+        }
+
+        // Convert Decimal to Binary
+        function convertToBinary() {
+            const decimalInput = document.getElementById('decimalInput').value;
+            if (/^\d+$/.test(decimalInput)) {
+                const binaryOutput = parseInt(decimalInput, 10).toString(2);
+                document.getElementById('binaryOutput').innerText = 'Binary: ' + binaryOutput;
+            } else {
+                document.getElementById('binaryOutput').innerText = 'Binary: Invalid Input';
+            }
+        }
+
+        // Reset Binary Input
+        function resetBinaryInput() {
+            document.getElementById('binaryInput').value = '';
+            document.getElementById('decimalOutput').innerText = 'Decimal: ';
+        }
+
+        // Reset Decimal Input
+        function resetDecimalInput() {
+            document.getElementById('decimalInput').value = '';
+            document.getElementById('binaryOutput').innerText = 'Binary: ';
+        }
+
+        // Add event listener to all copy buttons
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', function () {
+                // Get the code snippet inside the same container as the button
+                var code = this.parentElement.querySelector('pre code').innerText;
+                // Copy the code to the clipboard
+                navigator.clipboard.writeText(code).then(() => {
+                    // Change button text to "✔ Copied!" and style it
+                    this.textContent = '✔ Copied!';
+                    this.classList.add('copied');
+
+                    // Revert button text back to "Copy Code" after 2 seconds
+                    setTimeout(() => {
+                        this.textContent = 'Copy Code';
+                        this.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            });
+        });
+
+        function scrollToSection(id) {
+                const section = document.getElementById(id);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+    </script>
+
+
+
+</body>
+
+</html>
