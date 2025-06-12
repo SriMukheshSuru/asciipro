@@ -372,8 +372,26 @@ document.getElementById("login").addEventListener("click", function(e) {
       // ✅ Redirect to data.html
       window.location.href = "data.html";
     } else {
-      alert("Invalid email or password.");
+      showToast("Invalid email or password.");
     }
   });
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    const messageBox = document.getElementById("toast-message");
+    messageBox.textContent = message;
+    toast.classList.add("show");
+  
+    // Auto-hide after 3 seconds
+    clearTimeout(toast.hideTimeout); // clear previous timers if any
+    toast.hideTimeout = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3000);
+  }
+  
+  function hideToast() {
+    document.getElementById("toast").classList.remove("show");
+  }
+  
 
 initLoginForm();

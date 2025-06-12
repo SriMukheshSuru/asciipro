@@ -236,3 +236,65 @@ form .inputGroup2 #showPasswordToggle input:disabled~.indicator {
 form .inputGroup2 #showPasswordToggle input:disabled~.indicator:after {
     visibility: hidden;
 }
+
+
+.toast {
+    visibility: hidden;
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 250px;
+    max-width: 90vw;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 16px 20px;
+    padding-right: 0px;
+    /* space for close button */
+    border-radius: 6px;
+    font-weight: bold;
+    font-family: "Open Sans", sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transition: opacity 0.5s ease, top 0.5s ease;
+    z-index: 1000;
+    text-align: left;
+
+    /* ✅ Most Important: relative for correct positioning of close button */
+    position: fixed;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    top: 50px;
+}
+
+#toast-message {
+    display: block;
+    margin: 0;
+}
+
+.toast-close {
+    position: absolute;
+    bottom: 8px;
+    left: 120px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    appearance: none;
+
+    /* ✅ Disable any hover effects */
+    background-color: transparent;
+}
+
+.toast-close:hover,
+.toast-close:focus {
+    background: none;
+    outline: none;
+}
