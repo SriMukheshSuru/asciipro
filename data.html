@@ -171,6 +171,7 @@
         <button class="button-54" onclick="scrollToSection('dsu')">DSU</button>
         <button class="button-54" onclick="scrollToSection('seive')">Sieve</button>
         <button class="button-54" onclick="scrollToSection('modpow')">Modulo Power</button>
+        <button class="button-54" onclick="scrollToSection('matpow')">Matrix Power</button>
     </div>
       
 
@@ -797,6 +798,46 @@
         
     </code></pre>
         </div>
+
+
+     <h1 id="matpow">Matrix Power</h1>
+        <div class="code-snippet" >
+            <button class="copy-button">Copy Code</button>
+            <pre><code>
+    
+    vector&lt;vector&lt;int&gt;&gt; matMul(vector&lt;vector&lt;int&gt;&gt;&amp; A, vector&lt;vector&lt;int&gt;&gt;&amp; B) {
+        int m = B.size();
+        vector&lt;vector&lt;int&gt;&gt; ans(m, vector&lt;int&gt;(m));
+        for(int i = 0; i &lt; m; i++) {
+            for(int k = 0; k &lt; m; k++) if (A[i][k]) {
+                int aik = A[i][k];
+                for(int j = 0; j &lt; m; j++) {
+                    ans[i][j] = (ans[i][j] + aik * B[k][j]) % mod;
+                }
+            }
+        }
+        return ans;
+    }
+
+    vector&lt;vector&lt;int&gt;&gt; matPow(vector&lt;vector&lt;int&gt;&gt; T, int e) {
+        int m = T.size();
+        vector&lt;vector&lt;int&gt;&gt; R(m, vector&lt;int&gt;(m));
+        for(int i = 0; i &lt; m; i++) R[i][i] = 1;
+        while (e &gt; 0) {
+            if (e &amp; 1) R = matMul(R, T);
+            T = matMul(T, T);
+            e &gt;&gt;= 1;
+        }
+        return R;
+    }
+
+
+        
+    </code></pre>
+        </div>
+
+
+
 
 
     </div>
