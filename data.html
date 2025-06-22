@@ -255,6 +255,9 @@
         <button class="button-54" onclick="scrollToSection('modpow')">Modulo Power</button>
         <button class="button-54" onclick="scrollToSection('matpow')">Matrix Power</button>
         <button class="button-54" onclick="scrollToSection('moddiv')">Modular Division</button>
+        <button class="button-54" onclick="scrollToSection('maxsegtree')">Max Segment Tree</button>
+        <button class="button-54" onclick="scrollToSection('minsegtree')">Min Segment Tree</button>
+        <button class="button-54" onclick="scrollToSection('sumsegtree')">Sum Segment Tree</button>
     </div>
       
 
@@ -951,6 +954,236 @@
     </code></pre>
     </div>
  <!-- ends -->
+
+ <!-- starts -->
+<h1 id="maxsegtree">Max Segment Tree</h1>
+<div class="code-snippet">
+    <button class="copy-button">Copy Code</button>
+    <pre><code>
+
+    struct maxsegtree {
+        int n;
+        vector&lt;int&gt; a;
+        vector&lt;pair&lt;int,int&gt;&gt; seg;
+
+        maxsegtree(int _n, const vector&lt;int&gt;&amp; _a) {
+            n = _n;
+            a = _a;
+            seg.resize(4 * n);
+            build(0, 0, n - 1);
+        }
+
+        void build(int ind, int low, int high) {
+            if (low == high) {
+                seg[ind].first = a[low];
+                seg[ind].second = low;
+                return;
+            }
+            int mid = (low + high) / 2;
+            build(2 * ind + 1, low, mid);
+            build(2 * ind + 2, mid + 1, high);
+            if (seg[2 * ind + 1].first &gt; seg[2 * ind + 2].first) {
+                seg[ind] = seg[2 * ind + 1];
+            } else {
+                seg[ind] = seg[2 * ind + 2];
+            }
+        }
+
+        pair&lt;int,int&gt; query(int ind, int low, int high, int l, int r) {
+            if (low &gt; r || high &lt; l) {
+                return {INT_MIN, -1};
+            }
+            if (low &gt;= l &amp;&amp; high &lt;= r) {
+                return seg[ind];
+            }
+            int mid = (low + high) / 2;
+            auto left = query(2 * ind + 1, low, mid, l, r);
+            auto right = query(2 * ind + 2, mid + 1, high, l, r);
+            return (left.first &gt; right.first) ? left : right;
+        }
+
+        pair&lt;int,int&gt; query(int l, int r) {
+            return query(0, 0, n - 1, l, r);
+        }
+
+        void update(int ind, int low, int high, int idx, int val) {
+            if (low == high) {
+                a[idx] = val;
+                seg[ind].first = val;
+                seg[ind].second = idx;
+                return;
+            }
+            int mid = (low + high) / 2;
+            if (idx &lt;= mid)
+                update(2 * ind + 1, low, mid, idx, val);
+            else
+                update(2 * ind + 2, mid + 1, high, idx, val);
+            if (seg[2 * ind + 1].first &gt; seg[2 * ind + 2].first)
+                seg[ind] = seg[2 * ind + 1];
+            else
+                seg[ind] = seg[2 * ind + 2];
+        }
+
+        void update(int idx, int val) {
+            update(0, 0, n - 1, idx, val);
+        }
+    };
+
+    </code></pre>
+</div>
+<!-- ends -->
+
+
+<!-- starts -->
+<h1 id="minsegtree">Min Segment Tree</h1>
+<div class="code-snippet">
+    <button class="copy-button">Copy Code</button>
+    <pre><code>
+
+    struct minsegtree {
+        int n;
+        vector&lt;int&gt; a;
+        vector&lt;pair&lt;int,int&gt;&gt; seg;
+
+        minsegtree(int _n, const vector&lt;int&gt;&amp; _a) {
+            n = _n;
+            a = _a;
+            seg.resize(4 * n);
+            build(0, 0, n - 1);
+        }
+
+        void build(int ind, int low, int high) {
+            if (low == high) {
+                seg[ind].first = a[low];
+                seg[ind].second = low;
+                return;
+            }
+            int mid = (low + high) / 2;
+            build(2 * ind + 1, low, mid);
+            build(2 * ind + 2, mid + 1, high);
+            if (seg[2 * ind + 1].first &lt; seg[2 * ind + 2].first) {
+                seg[ind] = seg[2 * ind + 1];
+            } else {
+                seg[ind] = seg[2 * ind + 2];
+            }
+        }
+
+        pair&lt;int,int&gt; query(int ind, int low, int high, int l, int r) {
+            if (low &gt; r || high &lt; l) {
+                return {INT_MAX, -1};
+            }
+            if (low &gt;= l &amp;&amp; high &lt;= r) {
+                return seg[ind];
+            }
+            int mid = (low + high) / 2;
+            auto left = query(2 * ind + 1, low, mid, l, r);
+            auto right = query(2 * ind + 2, mid + 1, high, l, r);
+            return (left.first &lt; right.first) ? left : right;
+        }
+
+        pair&lt;int,int&gt; query(int l, int r) {
+            return query(0, 0, n - 1, l, r);
+        }
+
+        void update(int ind, int low, int high, int idx, int val) {
+            if (low == high) {
+                a[idx] = val;
+                seg[ind].first = val;
+                seg[ind].second = idx;
+                return;
+            }
+            int mid = (low + high) / 2;
+            if (idx &lt;= mid)
+                update(2 * ind + 1, low, mid, idx, val);
+            else
+                update(2 * ind + 2, mid + 1, high, idx, val);
+            if (seg[2 * ind + 1].first &lt; seg[2 * ind + 2].first)
+                seg[ind] = seg[2 * ind + 1];
+            else
+                seg[ind] = seg[2 * ind + 2];
+        }
+
+        void update(int idx, int val) {
+            update(0, 0, n - 1, idx, val);
+        }
+    };
+
+    </code></pre>
+</div>
+<!-- ends -->
+
+
+<!-- starts -->
+<h1 id="sumsegtree">Sum Segment Tree</h1>
+<div class="code-snippet">
+    <button class="copy-button">Copy Code</button>
+    <pre><code>
+
+    struct sumsegtree { 
+        int n;
+        vector&lt;int&gt; a;
+        vector&lt;long long&gt; seg;
+
+        sumsegtree(int _n, const vector&lt;int&gt;&amp; _a) { 
+            n = _n;
+            a = _a;
+            seg.resize(4 * n);
+            build(0, 0, n - 1);
+        }
+
+        void build(int ind, int low, int high) {
+            if (low == high) {
+                seg[ind] = a[low];
+                return;
+            }
+            int mid = (low + high) / 2;
+            build(2 * ind + 1, low, mid);
+            build(2 * ind + 2, mid + 1, high);
+            seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2];
+        }
+
+        long long query(int ind, int low, int high, int l, int r) {
+            if (low &gt; r || high &lt; l) {
+                return 0;
+            }
+            if (low &gt;= l &amp;&amp; high &lt;= r) {
+                return seg[ind];
+            }
+            int mid = (low + high) / 2;
+            auto left = query(2 * ind + 1, low, mid, l, r);
+            auto right = query(2 * ind + 2, mid + 1, high, l, r);
+            return left + right;
+        }
+
+        long long query(int l, int r) {
+            return query(0, 0, n - 1, l, r);
+        }
+
+        void update(int ind, int low, int high, int idx, int val) {
+            if (low == high) {
+                a[idx] = val;
+                seg[ind] = val;
+                return;
+            }
+            int mid = (low + high) / 2;
+            if (idx &lt;= mid)
+                update(2 * ind + 1, low, mid, idx, val);
+            else
+                update(2 * ind + 2, mid + 1, high, idx, val);
+            seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2];
+        }
+
+        void update(int idx, int val) {
+            update(0, 0, n - 1, idx, val);
+        }
+    };
+
+    </code></pre>
+</div>
+<!-- ends -->
+
+
+
 
 
 
