@@ -254,6 +254,7 @@
         <button class="button-54" onclick="scrollToSection('seive')">Sieve</button>
         <button class="button-54" onclick="scrollToSection('modpow')">Modulo Power</button>
         <button class="button-54" onclick="scrollToSection('matpow')">Matrix Power</button>
+        <button class="button-54" onclick="scrollToSection('moddiv')">Modular Division</button>
     </div>
       
 
@@ -913,12 +914,43 @@
         return R;
     }
 
-
-        
     </code></pre>
         </div>
 
+    <!-- starts -->
+    <h1 id="moddiv">Modular Division</h1>
+    <div class="code-snippet">
+    <button class="copy-button">Copy Code</button>
+    <pre><code>
 
+    int modpow(int b,int e){
+        int res = 1;
+        b = b % mod;
+        while(e &gt; 0){
+            if(e % 2 == 1){
+                res = (res * b) % mod;
+            }
+            b = (b * b) % mod;
+            e /= 2;
+        }
+        return res;
+    }
+
+    int inverse(int b) {
+        return modpow(b, mod - 2);
+    }
+
+    int divide(int a, int b) {
+        if (b == 0 || __gcd(b, mod) != 1) {
+            return -1;
+        }
+        int inv = inverse(b);
+        return (a % mod) * inv % mod;
+    }
+
+    </code></pre>
+    </div>
+ <!-- ends -->
 
 
 
