@@ -258,6 +258,7 @@
         <button class="button-54" onclick="scrollToSection('maxsegtree')">Max Segment Tree</button>
         <button class="button-54" onclick="scrollToSection('minsegtree')">Min Segment Tree</button>
         <button class="button-54" onclick="scrollToSection('sumsegtree')">Sum Segment Tree</button>
+        <button class="button-54" onclick="scrollToSection('fenwicktree')">Range sum with updates</button>
     </div>
       
 
@@ -1175,6 +1176,41 @@
 
         void update(int idx, int val) {
             update(0, 0, n - 1, idx, val);
+        }
+    };
+
+    </code></pre>
+</div>
+<!-- ends -->
+
+
+
+<!-- starts -->
+<h1 id="fenwicktree">Fenwick Tree</h1>
+<div class="code-snippet">
+    <button class="copy-button">Copy Code</button>
+    <pre><code>
+
+    struct Fenwick {
+        ll n;
+        vector&lt;ll&gt; bit;
+        Fenwick(ll _n): n(_n), bit(n, 0) {}
+        
+        void update(ll idx, ll delta) {   // ***add the extra value***
+            for (ll i = idx; i &lt; n; i = (i | (i + 1)))
+                bit[i] += delta;
+        }
+
+        ll prefixSum(ll idx) const {
+            ll s = 0;
+            for (ll i = idx; i &gt;= 0; i = (i &amp; (i + 1)) - 1)
+                s += bit[i];
+            return s;
+        }
+
+        ll query(ll l, ll r) const {
+            if (l &gt; r) return 0;
+            return prefixSum(r) - (l &gt; 0 ? prefixSum(l - 1) : 0);
         }
     };
 
