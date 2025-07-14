@@ -259,6 +259,7 @@
         <button class="button-54" onclick="scrollToSection('minsegtree')">Min Segment Tree</button>
         <button class="button-54" onclick="scrollToSection('sumsegtree')">Sum Segment Tree</button>
         <button class="button-54" onclick="scrollToSection('fenwicktree')">Range sum with updates</button>
+        <button class="button-54" onclick="scrollToSection('rangegcd')">Range GCD  with Updates</button>
     </div>
       
 
@@ -1219,7 +1220,59 @@
 <!-- ends -->
 
 
+<!-- starts -->
+<h1 id="rangegcd">Range GCD Segment Tree</h1>
+<div class="code-snippet">
+    <button class="copy-button">Copy Code</button>
+    <pre><code>
 
+    struct rangegcd { 
+        int n;
+        vector&lt;int&gt; st;
+
+        rangegcd(const vector&lt;int&gt;&amp; a) {
+            n = a.size();
+            st.assign(4 * n, 0);
+            build(a, 0, 0, n - 1);
+        }
+
+        void build(const vector&lt;int&gt;&amp; a, int p, int L, int R) {
+            if (L == R) {
+                st[p] = a[L];
+            } else {
+                int m = (L + R) &gt;&gt; 1;
+                build(a, p * 2 + 1, L, m);
+                build(a, p * 2 + 2, m + 1, R);
+                st[p] = gcd(st[p * 2 + 1], st[p * 2 + 2]);
+            }
+        }
+
+        int query(int i, int j) { return query(0, 0, n - 1, i, j); }
+        int query(int p, int L, int R, int i, int j) {
+            if (j &lt; L || i &gt; R) return 0;
+            if (i &lt;= L &amp;&amp; R &lt;= j) return st[p];
+            int m = (L + R) &gt;&gt; 1;
+            return gcd(query(p * 2 + 1, L, m, i, j),
+                       query(p * 2 + 2, m + 1, R, i, j));
+        }
+
+        void update(int idx, int val) { update(0, 0, n - 1, idx, val); }
+        void update(int p, int L, int R, int idx, int val) {
+            if (L == R) {
+                st[p] = val;
+            } else {
+                int m = (L + R) &gt;&gt; 1;
+                if (idx &lt;= m) update(p * 2 + 1, L, m, idx, val);
+                else update(p * 2 + 2, m + 1, R, idx, val);
+                st[p] = gcd(st[p * 2 + 1], st[p * 2 + 2]);
+            }
+        }
+    };
+
+    </code></pre>
+</div>
+
+<!-- ends -->
 
 
 
