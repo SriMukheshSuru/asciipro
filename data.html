@@ -260,6 +260,7 @@
         <button class="button-54" onclick="scrollToSection('sumsegtree')">Sum Segment Tree</button>
         <button class="button-54" onclick="scrollToSection('fenwicktree')">Range sum with updates</button>
         <button class="button-54" onclick="scrollToSection('rangegcd')">Range GCD  with Updates</button>
+        <button class="button-54" onclick="scrollToSection('nCr modulo P')">nCr Modulo p</button>
     </div>
       
 
@@ -1273,6 +1274,62 @@
 </div>
 
 <!-- ends -->
+
+<!-- starts -->
+<h1 id="ncrmodp">nCr Modulo p</h1>
+<div class="code-snippet">
+    <button class="copy-button">Copy Code</button>
+    <pre><code>
+
+    // C++ program to answer queries of nCr in O(1) time.
+    // P prime and N&lt;P
+    #define ll long long
+    const int N = 1000001;
+    ll invfact[N + 1];
+    ll numinv[N + 1];
+    ll fact[N + 1];
+
+    void InverseofNumber(ll p)
+    {
+        numinv[0] = numinv[1] = 1;
+        for (int i = 2; i &lt;= N; i++)
+            numinv[i] = numinv[p % i] * (p - p / i) % p;
+    }
+
+    void InverseofFactorial(ll p)
+    {
+        invfact[0] = invfact[1] = 1;
+
+        for (int i = 2; i &lt;= N; i++)
+            invfact[i] = (numinv[i] * invfact[i - 1]) % p;
+    }
+
+    void factorial(ll p)
+    {
+        fact[0] = 1;
+
+        for (int i = 1; i &lt;= N; i++) {
+            fact[i] = (fact[i - 1] * i) % p;
+        }
+    }
+
+    ll ncr(ll N, ll R, ll p)
+    {
+        ll ans = ((fact[N] * invfact[R])
+                  % p * invfact[N - R])
+                 % p;
+        return ans;
+    }
+
+    // main
+    // p =&gt; prime
+    // InverseofNumber(p); InverseofFactorial(p); factorial(p);
+
+    </code></pre>
+</div>
+<!-- ends -->
+
+
 
 
 
