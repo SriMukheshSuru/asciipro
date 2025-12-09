@@ -261,6 +261,7 @@
         <button class="button-54" onclick="scrollToSection('fenwicktree')">Range sum with updates</button>
         <button class="button-54" onclick="scrollToSection('rangegcd')">Range GCD  with Updates</button>
         <button class="button-54" onclick="scrollToSection('ncrmodp')">nCr Modulo p</button>
+        <button class="button-54" onclick="scrollToSection('customhash')">Custom Hash for Unordered_map</button>
     </div>
       
 
@@ -1328,6 +1329,52 @@
     </code></pre>
 </div>
 <!-- ends -->
+
+
+
+<!-- starts -->
+<h1 id="customhash">Custom Hash for unordered_map</h1>
+<div class="code-snippet">
+    <button class="copy-button">Copy Code</button>
+    <pre><code>
+
+    // unordered_map&lt;type1, type2, custom_hash&gt; mape
+    struct custom_hash {
+
+        // long long / uint64_t
+        size_t operator()(uint64_t x) const noexcept {
+            x ^= x &gt;&gt; 23;
+            x *= 0x2127599bf4325c37ULL;
+            x ^= x &gt;&gt; 47;
+            return (size_t)x;
+        }
+
+        // int
+        size_t operator()(int x) const noexcept {
+            return (*this)((uint64_t)x);
+        }
+
+        // pair&lt;int,int&gt;
+        size_t operator()(const pair&lt;int,int&gt;&amp; p) const noexcept {
+            uint64_t h = ((uint64_t)p.first &lt;&lt; 32) ^ (uint64_t)p.second;
+            return (*this)(h);
+        }
+
+        // vector&lt;int&gt;
+        size_t operator()(const vector&lt;int&gt;&amp; v) const noexcept {
+            uint64_t h = v.size();
+            for (int x : v) {
+                h ^= (*this)((uint64_t)x + 0x9e3779b97f4a7c15ULL);
+                h *= 0x9ddfea08eb382d69ULL;
+            }
+            return (*this)(h);
+        }
+    };
+
+    </code></pre>
+</div>
+<!-- ends -->
+
 
 
 
