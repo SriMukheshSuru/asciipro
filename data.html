@@ -262,6 +262,7 @@
         <button class="button-54" onclick="scrollToSection('rangegcd')">Range GCD  with Updates</button>
         <button class="button-54" onclick="scrollToSection('ncrmodp')">nCr Modulo p</button>
         <button class="button-54" onclick="scrollToSection('customhash')">Custom Hash for Unordered_map</button>
+        <button class="button-54" onclick="scrollToSection('spf-template')">Prime Factorization</button>
         
     </div>
       
@@ -1371,6 +1372,42 @@
             return (*this)(h);
         }
     };
+
+    </code></pre>
+</div>
+<!-- ends -->
+
+<!-- starts -->
+<h1 id="spf-template">Prime Factorization</h1>
+<div class="code-snippet">
+    <button class="copy-button">Copy Code</button>
+    <pre><code>
+
+    const int MAXN = 1000000;
+    vector&lt;int&gt; spf(MAXN + 1);
+
+    void sieve() {
+        for (int i = 1; i &lt;= MAXN; i++)
+            spf[i] = i;
+
+        for (int i = 2; i * i &lt;= MAXN; i++) {
+            if (spf[i] == i) {
+                for (int j = i * i; j &lt;= MAXN; j += i) {
+                    if (spf[j] == j)
+                        spf[j] = i;
+                }
+            }
+        }
+    }
+
+    vector&lt;int&gt; gf(int num) {
+        vector&lt;int&gt; factors;
+        while (num &gt; 1) {
+            factors.push_back(spf[num]);
+            num /= spf[num];
+        }
+        return factors;
+    }
 
     </code></pre>
 </div>
